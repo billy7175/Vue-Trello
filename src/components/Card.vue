@@ -1,7 +1,8 @@
 <template>
   <div>
-    <h3></h3>
-    {{ cid }}
+    Card
+    <div v-if="loading">Loading Card...</div>
+    <div v-else>{{cid}}</div>
   </div>
 </template>
 <script>
@@ -9,20 +10,28 @@ export default {
   name: "Card",
   data() {
     return {
+      loading: false,
       cid: 0,
     };
   },
   watch:{
-    '$route'(){
-      // this.cid = newValue.params.cid
-      this.cid = this.$route.params.cid
+    '$route': {
+      immediate:true,
+      handler: 'fetchData'
     }
   },
   created() {
-    console.log("route =", this.$route);
-    console.log("route card =", this.$route.params.cid);
-    this.cid = this.$route.params.cid;
+    
   },
+  methods:{
+    fetchData(){
+      this.loading = true
+      setTimeout(() => {
+        this.cid = this.$route.params.cid
+        this.loading = false
+      },1000)
+    }
+  }
   
 };
 </script>
