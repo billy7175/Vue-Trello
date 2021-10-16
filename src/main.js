@@ -15,6 +15,7 @@ const NotFound = {template: '<div>Page Not Found</div>'}
 
 // VueRouter 안에 {} and Option
 const router = new VueRouter({
+  mode:'history',
   routes : [
     {path:'/', component: App},
     {path:'/login', component:Login},
