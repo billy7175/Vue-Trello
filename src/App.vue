@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    asdasd
+    Vue-Router-Pratice
     <router-view></router-view>
   </div>
 </template>
@@ -10,9 +10,6 @@
 
 export default {
   name: 'App',
-  components: {
-    // HelloWorld
-  }
 }
 </script>
 
