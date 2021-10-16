@@ -3,33 +3,30 @@
 // import Vue from 'vue'
 import Vue from 'vue/dist/vue'
 import App from './App.vue'
+import VueRouter from 'vue-router'
 
+
+Vue.use(VueRouter)
 //*****//
 // Vue.config.productionTip = false
 
 const Login = {template: '<div>Login Page</div>'}
+const NotFound = {template: '<div>Page Not Found</div>'}
 
-const routes ={
-  '/' : App,
-  '/login': Login
-}
+// VueRouter 안에 {} and Option
+const router = new VueRouter({
+  routes : [
+    {path:'/', component: App},
+    {path:'/login', component:Login},
+    {path:'*', component: NotFound}
+  ]
+})
 
 new Vue({
   el: '#app',
-  routes,
-  computed: {
-    VueComponent(){
-      return routes[window.location.pathname] || {
-        template:'<div>Page not Found</div>'
-      }
-    }
-  },
-  // render: h => h(App),
-  render(h){
-    return h(this.VueComponent)
-  }
+  // routes,
+  router,
+  render: h => h(App),
 })
-// new Vue({
-//   render: h => h(App),
-// }).$mount('#app')
+
 
