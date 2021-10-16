@@ -2,26 +2,13 @@
 // from 'vue' 사용시 일번에러 발생 WHY ???
 // import Vue from 'vue'
 import Vue from 'vue/dist/vue'
-import App from './App.vue'
 import VueRouter from 'vue-router'
+import router from './router'
+import App from './App.vue'
+Vue.use(VueRouter); // rouet index.js에서 Vue.use(VueRouter)시 오류 WHY ???
 
 
-Vue.use(VueRouter)
-//*****//
-// Vue.config.productionTip = false
 
-const Login = {template: '<div>Login Page</div>'}
-const NotFound = {template: '<div>Page Not Found</div>'}
-
-// VueRouter 안에 {} and Option
-const router = new VueRouter({
-  mode:'history',
-  routes : [
-    {path:'/', component: App},
-    {path:'/login', component:Login},
-    {path:'*', component: NotFound}
-  ]
-})
 
 new Vue({
   el: '#app',
