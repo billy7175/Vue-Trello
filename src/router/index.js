@@ -4,6 +4,7 @@ import VueRouter from "vue-router";
 import Home from '../components/Home'
 import Login from '../components/Login'
 import NotFound from '../components/NotFound'
+import Board from '../components/Board'
 
 
 // VueRouter 안에 {} and Option
@@ -12,6 +13,7 @@ const router = new VueRouter({
   routes: [
     { path: "/", component: Home },
     { path: "/login", component: Login },
+    { path: "/board/:bid", component: Board },
     { path: "*", component: NotFound },
   ],
 });
