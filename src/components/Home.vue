@@ -54,8 +54,7 @@ export default {
   methods: {
     fetchData() {
       this.loading = true;
-      board
-        .fetch()
+      board.fetch()
         .then((data) => {
           this.boards = data.list;
         })
@@ -64,11 +63,9 @@ export default {
         });
     },
     addBoard() {
-      console.log("addBoard()");
       this.isAddBoard = true;
     },
     onAddBoard(title) {
-      console.log("click onAddBoard");
       board.create(title)
       .then(() => this.fetchData())
     },

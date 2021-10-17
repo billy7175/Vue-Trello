@@ -1,6 +1,6 @@
-// import Vue from "vue";
+import Vue from "vue";
 import VueRouter from "vue-router";
-// Vue.use(VueRouter);
+
 import Home from "../components/Home";
 import Login from "../components/Login";
 import NotFound from "../components/NotFound";
@@ -12,12 +12,16 @@ import Card from "../components/Card";
 //   const loginPath = `/login?rPath=${encodeURIComponent(to.path)}`;
 //   isAuth ? next() : next(loginPath);
 // };
+Vue.use(VueRouter);
 
 const requireAuth = (to, from, next) => {
   const isAuth = localStorage.getItem('token')
   const loginPath = `/login?rPath=${encodeURIComponent(to.path)}`
   isAuth ? next() : next(loginPath)
 }
+
+
+
 
 // VueRouter 안에 {} and Option
 
@@ -31,7 +35,7 @@ const router = new VueRouter({
       component: Board,
       beforeEnter: requireAuth,
       children: [
-        { path: "c/:cid", component: Card, beforeEnter: requireAuth },
+        { path: "c/:cid", component: Card },
       ],
     },
     { path: "*", component: NotFound },

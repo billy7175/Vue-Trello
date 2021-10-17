@@ -1,9 +1,13 @@
 import axios from "axios";
 import router from "../router";
 const DOMAIN = "http://localhost:3000";
-const UNAUTORIZED = 401;
-const onUnautorized = () => {
-  router.push("/login");
+const UNAUTHORIZED = 401;
+// const onUnauthorized = () => {
+//   router.push("/login");
+// };
+
+const onUnauthorized = () => {
+  router.push(`/login?rPath=${encodeURIComponent(location.pathname)}`);
 };
 
 const request = (method, url, data) => {
@@ -16,7 +20,7 @@ const request = (method, url, data) => {
     .catch((result) => {
       const { status } = result.response;
       console.log("status ", result);
-      if (status === UNAUTORIZED) return onUnautorized();
+      if (status === UNAUTHORIZED) return onUnauthorized();
       throw Error(result);
     });
 };
@@ -26,6 +30,11 @@ export const setAuthInHeader = (token) => {
     ? `Bearer ${token}`
     : null;
 };
+
+
+const { token } = localStorage;
+if (token) setAuthInHeader(token);
+
 
 export const board = {
   fetch() {
