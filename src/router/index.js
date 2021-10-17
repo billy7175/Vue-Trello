@@ -14,6 +14,7 @@ import Card from "../components/Card";
 // };
 Vue.use(VueRouter);
 
+/***Important Factor***/
 const requireAuth = (to, from, next) => {
   const isAuth = localStorage.getItem('token')
   const loginPath = `/login?rPath=${encodeURIComponent(to.path)}`
