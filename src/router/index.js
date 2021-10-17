@@ -27,11 +27,11 @@ const router = new VueRouter({
     { path: "/", component: Home, beforeEnter: requireAuth },
     { path: "/login", component: Login  },
     {
-      path: "/board/:bid",
+      path: "/b/:bid",
       component: Board,
       beforeEnter: requireAuth,
       children: [
-        { path: "card/:cid", component: Card, beforeEnter: requireAuth },
+        { path: "c/:cid", component: Card, beforeEnter: requireAuth },
       ],
     },
     { path: "*", component: NotFound },

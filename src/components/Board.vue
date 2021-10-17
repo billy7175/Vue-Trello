@@ -3,8 +3,8 @@
     <div>Board : board-id = {{ bid }}</div>
     <div v-if="loading">Loading...</div>
     <ul v-else>
-      <li><router-link :to="`/board/${bid}/card/1`">Card1</router-link></li>
-      <li><router-link :to="`/board/${bid}/card/2`">Card2</router-link></li>
+      <li><router-link :to="`/b/${bid}/c/1`">Card1</router-link></li>
+      <li><router-link :to="`/b/${bid}/c/2`">Card2</router-link></li>
     </ul>
     <hr />
     <router-view></router-view>
