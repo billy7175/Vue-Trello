@@ -7,11 +7,17 @@ import NotFound from "../components/NotFound";
 import Board from "../components/Board";
 import Card from "../components/Card";
 
+// const requireAuth = (to, from, next) => {
+//   const isAuth = localStorage.getItem("token");
+//   const loginPath = `/login?rPath=${encodeURIComponent(to.path)}`;
+//   isAuth ? next() : next(loginPath);
+// };
+
 const requireAuth = (to, from, next) => {
-  const isAuth = localStorage.getItem("token");
-  const loginPath = `/login?rPath=${encodeURIComponent(to.path)}`;
-  isAuth ? next() : next(loginPath);
-};
+  const isAuth = localStorage.getItem('token')
+  const loginPath = `/login?rPath=${encodeURIComponent(to.path)}`
+  isAuth ? next() : next(loginPath)
+}
 
 // VueRouter 안에 {} and Option
 
