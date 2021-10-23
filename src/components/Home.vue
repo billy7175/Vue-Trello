@@ -14,15 +14,16 @@
         </router-link>
       </div>
       <div class="board-item board-item-new">
-        <a class="new-board-btn" href="" @click.prevent="addBoard">
-          Create new board...
-        </a>
+        <a class="new-board-btn" @click="addBoard"> Create new board... </a>
       </div>
     </div>
+    <!-- v-if="isAddBoard" -->
+    <!-- @close="isAddBoard = false"   -->
+    <!-- @submit="onAddBoard" -->
     <AddBoard
       v-if="isAddBoard"
-      @close="isAddBoard = false"
       @submit="onAddBoard"
+      @close="isAddBoard = false"
     />
   </div>
 </template>
@@ -54,7 +55,8 @@ export default {
   methods: {
     fetchData() {
       this.loading = true;
-      board.fetch()
+      board
+        .fetch()
         .then((data) => {
           this.boards = data.list;
         })
@@ -66,8 +68,7 @@ export default {
       this.isAddBoard = true;
     },
     onAddBoard(title) {
-      board.create(title)
-      .then(() => this.fetchData())
+      board.create(title).then(() => this.fetchData());
     },
   },
 };
