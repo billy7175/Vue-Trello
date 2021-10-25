@@ -3,17 +3,18 @@
 // import Vue from 'vue'
 // import Vue from 'vue/dist/vue'
 import Vue from 'vue'
-import VueRouter from 'vue-router'
+// import VueRouter from 'vue-router'
 import router from './router'
 import App from './App.vue'
-Vue.use(VueRouter); // rouet index.js에서 Vue.use(VueRouter)시 오류 WHY ???
-
+import store from './store'
+ // rouet index.js에서 Vue.use(VueRouter)시 오류 WHY ???
 
 
 
 new Vue({
   el: '#app',
   // routes,
+  store,
   router,
   render: h => h(App),
 })
