@@ -1,17 +1,11 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-
 import Home from "../components/Home";
 import Login from "../components/Login";
 import NotFound from "../components/NotFound";
 import Board from "../components/Board";
 import Card from "../components/Card";
 
-// const requireAuth = (to, from, next) => {
-//   const isAuth = localStorage.getItem("token");
-//   const loginPath = `/login?rPath=${encodeURIComponent(to.path)}`;
-//   isAuth ? next() : next(loginPath);
-// };
 Vue.use(VueRouter);
 
 /***Important Factor***/
