@@ -34,8 +34,8 @@ export const setAuthInHeader = (token) => {
 };
 
 
-const { token } = localStorage;
-if (token) setAuthInHeader(token);
+// const { token } = localStorage;
+// if (token) setAuthInHeader(token);
 
 
 export const board = {
