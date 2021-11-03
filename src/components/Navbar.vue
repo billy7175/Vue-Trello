@@ -13,7 +13,8 @@
   </nav>
 </template>
 <script>
-import { setAuthInHeader } from "../api";
+// import { setAuthInHeader } from "../api";
+import {  mapGetters, mapMutations } from 'vuex'
 export default {
   name: "Navbar",
   created(){
@@ -21,14 +22,17 @@ export default {
     console.log(!!localStorage.getItem("token"))
   },
   computed: {
-    isAuth() {
-      return !!localStorage.getItem("token");
-    },
+    ...mapGetters(['isAuth'])
+    // isAuth() {
+    //   return !!localStorage.getItem("token");
+    // },
   },
   methods: {
+    ...mapMutations(['LOGOUT']),
     logout() {
-      delete localStorage.token;
-      setAuthInHeader(null);
+      this.LOGOUT()
+      // delete localStorage.token;
+      // setAuthInHeader(null);
       this.$router.push("/login");
     },
   },
