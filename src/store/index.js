@@ -53,5 +53,6 @@ const store = new Vuex.Store({
 
 const { token } = localStorage
 store.commit('LOGIN', token)
+// test commit to closed branch
 
 export default store
