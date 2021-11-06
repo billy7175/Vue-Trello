@@ -1,58 +1,56 @@
-import Vuex from 'vuex'
-import Vue from 'vue'
-import * as api from '../api'
+import Vuex from "vuex";
+import Vue from "vue";
+import * as api from "../api";
+import state from "./state";
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 const store = new Vuex.Store({
-  state : {
-    isAddBoard : false,
-    boards:[],
-    token: null
-  },
+  state,
   getters: {
-    isAuth(state){
-      return !!state.token
-    }
+    isAuth(state) {
+      return !!state.token;
+    },
   },
   // boards:[],
   mutations: {
-    SET_IS_ADD_BOARD(state, toggle){
-      state.isAddBoard = toggle
+    SET_IS_ADD_BOARD(state, toggle) {
+      state.isAddBoard = toggle;
     },
-    SET_BOARDS (state,boards){
-      state.boards = boards
+    SET_BOARDS(state, boards) {
+      state.boards = boards;
     },
-    LOGIN (state, token){
-      if(!token) return 
-      state.token = token
-      localStorage.setItem('token', token)
-      api.setAuthInHeader(token)
+    LOGIN(state, token) {
+      if (!token) return;
+      state.token = token;
+      localStorage.setItem("token", token);
+      api.setAuthInHeader(token);
     },
-    LOGOUT(state){
+    LOGOUT(state) {
       state.token = null;
-      delete localStorage.token
-      api.setAuthInHeader(null)
-    }
+      delete localStorage.token;
+      api.setAuthInHeader(null);
+    },
   },
   actions: {
-    ADD_BOARD (_, {title}){
-      return api.board.create(title)
+    ADD_BOARD(_, { title }) {
+      return api.board.create(title);
     },
-    FETCH_BOARDS ({commit}){
-      return api.board.fetch().then(data => {
-        commit('SET_BOARDS', data.list)
-      })
+    FETCH_BOARDS({ commit }) {
+      return api.board.fetch().then((data) => {
+        commit("SET_BOARDS", data.list);
+      });
     },
-    LOGIN ({commit}, {email, password}){
-      return api.auth.login(email, password)
-        .then(data => commit('LOGIN', data.accessToken))
-    }
-  }
-})
+    LOGIN({ commit }, { email, password }) {
+      return api.auth
+        .login(email, password)
+        .then((data) => commit("LOGIN", data.accessToken));
+    },
+  },
+});
 
-const { token } = localStorage
-store.commit('LOGIN', token)
+const { token } = localStorage;
+store.commit("LOGIN", token);
 // test commit to closed branch
 
-export default store
+export default store;
