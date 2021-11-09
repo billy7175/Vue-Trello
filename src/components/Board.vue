@@ -1,21 +1,28 @@
 <template>
   <div>
-    <div>Board : board-id = {{ bid }}</div>
-    <div v-if="loading">Loading...</div>
-    <ul v-else>
-      <div>bid:{{ bid }}</div>
-      <pre>{{ board }}</pre>
-      <li><router-link :to="`/b/${bid}/c/1`">Card1</router-link></li>
-      <li><router-link :to="`/b/${bid}/c/2`">Card2</router-link></li>
-    </ul>
-    <hr />
-    <router-view></router-view>
+    <div class="board-wrapper">
+      <div class="board">
+        <div class="board-header">
+          <span class="board-title">{{board.title}}</span>
+        </div>
+        <div class="list-section-wrapper">
+          <div class="list-section">
+            <div class="list-wrapper" v-for="list in board.lists" :key="list.id">
+              <List :data="list" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
 import { mapState, mapActions } from "vuex";
+import List from './List.vue'
 export default {
-  name: "Board",
+  components: {
+    List
+  },
   data() {
     return {
       loading: false,
