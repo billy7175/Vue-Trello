@@ -1,37 +1,51 @@
 <template>
   <div>
-    <div>Board : board-id = {{ bid }}</div>
-    <div v-if="loading">Loading...</div>
-    <ul v-else>
-      <li><router-link :to="`/b/${bid}/c/1`">Card1</router-link></li>
-      <li><router-link :to="`/b/${bid}/c/2`">Card2</router-link></li>
-    </ul>
-    <hr />
-    <router-view></router-view>
+    <div class="board-wrapper">
+      <div class="board">
+        <div class="board-header">
+          <span class="board-title">{{board.title}}</span>
+        </div>
+        <div class="list-section-wrapper">
+          <div class="list-section">
+            <div class="list-wrapper" v-for="list in board.lists" :key="list.id">
+              <List :data="list" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
+import { mapState, mapActions } from "vuex";
+import List from './List.vue'
 export default {
-  name: "Board",
+  components: {
+    List
+  },
   data() {
     return {
       loading: false,
       bid: 0,
-      apiRes: ''
-    }
+      apiRes: "",
+    };
+  },
+  computed: {
+    ...mapState({
+      board: "board",
+    }),
   },
   created() {
+    this.bid = this.$route.params.bid
     this.fetchData();
   },
   methods: {
+    ...mapActions(["FETCH_BOARD"]),
     fetchData() {
       this.loading = true;
+      this.FETCH_BOARD({ id: this.$route.params.bid })
+      .then(() => this.loading = false)
 
-      setTimeout(() => {
-        this.bid = this.$route.params.bid;
-        this.loading = false
-      }, 1000);
-      
     },
   },
 };
