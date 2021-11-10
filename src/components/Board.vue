@@ -50,3 +50,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.list-section {
+  border:3px solid blue;
+  display:flex;
+}
+</style>
