@@ -6,7 +6,6 @@ const UNAUTHORIZED = 401;
 //   router.push("/login");
 // };
 
-
 /***Important Factor***/
 const onUnauthorized = () => {
   router.push(`/login?rPath=${encodeURIComponent(location.pathname)}`);
@@ -33,14 +32,12 @@ export const setAuthInHeader = (token) => {
     : null;
 };
 
-
 // const { token } = localStorage;
 // if (token) setAuthInHeader(token);
 
-
 export const board = {
   fetch(id) {
-    return id ? request("get", `/boards/${id}`) : request('get', '/boards')
+    return id ? request("get", `/boards/${id}`) : request("get", "/boards");
   },
   create(title) {
     return request("post", "/boards", { title });
@@ -50,5 +47,11 @@ export const board = {
 export const auth = {
   login(email, password) {
     return request("post", "/login", { email, password });
+  },
+};
+
+export const card = {
+  create(title, listId, pos) {
+    return request("post", "/cards", { title, listId, pos });
   },
 };
