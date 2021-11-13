@@ -14,6 +14,7 @@
           <div class="modal-footer">
             <slot name="footer">
               default footer
+              <button @click="onClose">보드이동</button>
               <button class="modal-default-button" @click="$emit('close')">
                 OK
               </button>
@@ -25,8 +26,17 @@
   </transition>
 </template>
 <script>
+import {mapState} from 'vuex'
 export default {
-  name:'Modal'
+  name:'Modal',
+  computed: {
+    ...mapState(['board'])
+  },
+  methods: {
+    onClose(){
+      this.$router.push(`/b/${this.board.id}`)
+    },
+  }
 };
 </script>
 
