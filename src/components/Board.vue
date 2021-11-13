@@ -3,7 +3,8 @@
     <div class="board-wrapper">
       <div class="board">
         <div class="board-header">
-          <span class="board-title">{{board.title}}</span>
+          <span class="board-title">
+            {{board.title}}</span>
         </div>
         <div class="list-section-wrapper">
           <div class="list-section">
@@ -14,6 +15,7 @@
         </div>
       </div>
     </div>
+    <router-view></router-view>
   </div>
 </template>
 <script>
@@ -53,7 +55,7 @@ export default {
 
 <style scoped>
 .list-section {
-  border:3px solid blue;
+  border:5px solid blue;
   display:flex;
 }
 </style>
