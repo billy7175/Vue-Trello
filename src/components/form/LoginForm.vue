@@ -28,14 +28,15 @@
       </section>
 
       <div>
-        <button 
+        <button
           class="login-button"
-          type="submit" 
+          type="button"
           :disabled="hasAllLoginFields"
-          @click="login" 
+          @click="login"
         >
           로그인
         </button>
+        <button ref="googleAuth" @click="googleAuth"></button>
       </div>
     </div>
   </form>
@@ -43,27 +44,38 @@
 
 <script>
 export default {
-  computed : {
-    hasAllLoginFields(){
-      return !this.id || !this.password
-    }
+  computed: {
+    hasAllLoginFields() {
+      return !this.id || !this.password;
+    },
+  },
+  created() {
+    this.autoLogin();
   },
   methods: {
-    login(e) {
-      e.preventDefault();
-      console.log(this.$refs.form);
-      for (const f of this.$refs.form) {
-        if (f.id) console.log(f.value);
-        // console.log('인풋 입력값은 : ', f.value)
+    autoLogin() {
+      setTimeout(() => {
+        this.id = "test@gmail.com";
+        this.password = "1234";
+        setTimeout(() => {
+          this.login();
+        }, 1000);
+      }, 1000);
+    },
+    login() {
+      if (this.id === "test@gmail.com" && this.password === "1234") {
+        alert("You have been successfuly logged in.");
+      } else {
+        alert("Enter correct user information.");
       }
     },
   },
-  data(){
+  data() {
     return {
-      id:'',
-      password:''
-    }
-  }
+      id: "",
+      password: "",
+    };
+  },
 };
 </script>
 
@@ -107,8 +119,8 @@ export default {
       font-size: 20px;
       font-weight: 500;
       border: none;
-      &:disabled{
-        opacity:.5;
+      &:disabled {
+        opacity: 0.5;
       }
     }
   }
