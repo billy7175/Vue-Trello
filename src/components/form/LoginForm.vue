@@ -34,20 +34,29 @@
           class="button login"
           type="button"
           :disabled="hasAllLoginFields"
-          @click="login"
+          @click="signIn"
         >
           로그인
         </button>
-        <button style="margin-top:10px;" class="button kakao" ref="googleAuth" @click="kakaoLogin">
-          <img src="http://papaspick.com/web/upload/2019_web/icon/kakao_login.jpg">
+        <button
+          style="margin-top: 10px"
+          class="button kakao"
+          ref="googleAuth"
+          @click="kakaoLogin"
+        >
+          <img
+            src="http://papaspick.com/web/upload/2019_web/icon/kakao_login.jpg"
+          />
         </button>
-        
       </div>
     </div>
   </form>
 </template>
 
 <script>
+import { auth } from "../../firebase";
+import { signInWithEmailAndPassword, signOut } from "firebase/auth";
+
 export default {
   computed: {
     hasAllLoginFields() {
@@ -58,6 +67,39 @@ export default {
     // this.autoLogin();
   },
   methods: {
+    signOut() {
+      signOut(auth)
+        .then(() => {
+          alert("user signed out");
+        })
+        .catch((error) => {
+          console.log(error);
+          alert(error);
+        });
+    },
+    signIn() {
+      // # get the values of email and password
+      const email = document.getElementById("id").value;
+      const password = document.getElementById("password").value;
+
+      //  #Call method for sign in
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          console.log(userCredential);
+          alert("user has successfully signed in");
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(errorCode, errorMessage);
+          debugger;
+          if (errorCode === "auth/wrong-password") {
+            alert("Wrong password");
+          } else {
+            alert(errorMessage);
+          }
+        });
+    },
     kakaoLogin(e) {
       e.preventDefault();
       if (window.Kakao.Auth.getAccessToken()) {
@@ -80,12 +122,16 @@ export default {
           window.Kakao.API.request({
             url: "/v2/user/me",
             data: {
-              property_keys: ["kakao_account.profile","kakao_account.email", "kakao_account.gender"],
+              property_keys: [
+                "kakao_account.profile",
+                "kakao_account.email",
+                "kakao_account.gender",
+              ],
             },
             success: async function (response) {
               console.log(response);
-              window.location = 'http://localhost:8080/about'
-              alert('로그인 성공')
+              window.location = "http://localhost:8080/about";
+              alert("로그인 성공");
             },
             fail: function (error) {
               console.log(error);
@@ -171,7 +217,7 @@ export default {
 }
 
 img {
-  width:100%;
-  height:100%;
+  width: 100%;
+  height: 100%;
 }
 </style>
