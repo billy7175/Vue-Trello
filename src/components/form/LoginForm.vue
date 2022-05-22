@@ -9,6 +9,7 @@
       <section class="form-control-container">
         <div class="form-control">
           <input
+            ref="email"
             id="id"
             class="form-input"
             type="email"
@@ -18,6 +19,7 @@
         </div>
         <div class="form-control">
           <input
+            ref="password"
             id="password"
             class="form-input"
             type="password"
@@ -29,14 +31,17 @@
 
       <div>
         <button
-          class="login-button"
+          class="button login"
           type="button"
           :disabled="hasAllLoginFields"
           @click="login"
         >
           로그인
         </button>
-        <button ref="googleAuth" @click="googleAuth"></button>
+        <button style="margin-top:10px;" class="button kakao" ref="googleAuth" @click="kakaoLogin">
+          <img src="http://papaspick.com/web/upload/2019_web/icon/kakao_login.jpg">
+        </button>
+        
       </div>
     </div>
   </form>
@@ -50,9 +55,48 @@ export default {
     },
   },
   created() {
-    this.autoLogin();
+    // this.autoLogin();
   },
   methods: {
+    kakaoLogin(e) {
+      e.preventDefault();
+      if (window.Kakao.Auth.getAccessToken()) {
+        window.Kakao.API.request({
+          url: "/v1/user/unlink",
+          success: function (response) {
+            console.log(response);
+            debugger;
+          },
+          fail: function (error) {
+            console.log(error);
+            debugger;
+          },
+        });
+        window.Kakao.Auth.setAccessToken(undefined);
+      }
+
+      window.Kakao.Auth.login({
+        success: function () {
+          window.Kakao.API.request({
+            url: "/v2/user/me",
+            data: {
+              property_keys: ["kakao_account.profile","kakao_account.email", "kakao_account.gender"],
+            },
+            success: async function (response) {
+              console.log(response);
+              window.location = 'http://localhost:8080/about'
+              alert('로그인 성공')
+            },
+            fail: function (error) {
+              console.log(error);
+            },
+          });
+        },
+        fail: function (error) {
+          console.log(error);
+        },
+      });
+    },
     autoLogin() {
       setTimeout(() => {
         this.id = "test@gmail.com";
@@ -111,7 +155,7 @@ export default {
       }
     }
 
-    .login-button {
+    .button {
       background: #d34c62;
       width: 100%;
       height: 50px;
@@ -124,5 +168,10 @@ export default {
       }
     }
   }
+}
+
+img {
+  width:100%;
+  height:100%;
 }
 </style>
