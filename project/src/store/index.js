@@ -54,6 +54,5 @@ const store = new Vuex.Store({
 
 const { token } = localStorage
 store.commit('LOGIN', token)
-console.log('#store', store)
 
 export default store

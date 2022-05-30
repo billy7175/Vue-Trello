@@ -6,16 +6,16 @@ import Login from '@/components/Login'
 import Board from '@/components/Board'
 import Card from '@/components/Card'
 import NotFound from '@/components/NotFound'
+// import store from '../store'
+// console.log(store)
 
 Vue.use(VueRouter)
-
-// const Login = { template: '<div>Login Page</div>' }
-// const NotFound = { template: '<div>Page not found</div>' }
 
 const requireAuth = (to, from, next) => {
   const isAuth = localStorage.getItem('token')
   const loginPath = `/login?rPath=${encodeURIComponent(to.path)}`
   isAuth ? next() : next(loginPath)
+  // store.getters.isAuth ? next() : next(loginPath)
 }
 
 const router = new VueRouter({
