@@ -19,6 +19,8 @@ export default {
 <style>
 * {
   margin:0px;
+  padding:0px;
+  box-sizing: border-box;
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

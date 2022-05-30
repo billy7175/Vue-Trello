@@ -2,10 +2,15 @@
   <div>
     <div class="home-title">Personal Boards</div>
     <div class="board-list" ref="boardList">
-      <div class="board-item" v-for="b in boards" :key="b.id" 
-        :data-bgcolor="b.bgColor" ref="boardItem">
+      <div
+        class="board-item"
+        v-for="b in boards"
+        :key="b.id"
+        :data-bgcolor="b.bgColor"
+        ref="boardItem"
+      >
         <router-link :to="`/b/${b.id}`">
-          <div class="board-item-title">{{b.title}}</div>
+          <div class="board-item-title">{{ b.title }}</div>
         </router-link>
       </div>
       <div class="board-item board-item-new">
@@ -14,44 +19,54 @@
         </a>
       </div>
     </div>
+    <AddBoard v-if="isAddBoard" @close="isAddBoard = false" @submit="onAddBoard"></AddBoard>
   </div>
 </template>
 
 <script>
-import {board} from '../api'
-
+import { board } from "../api";
+import AddBoard from '@/components/AddBoard'
 export default {
+  components: {
+    AddBoard
+  },
   data() {
     return {
+      isAddBoard: false,
       loading: false,
       boards: [],
-      error: ''
-    }
+      error: "",
+    };
   },
   created() {
-    this.fetchData()
+    this.fetchData();
   },
   updated() {
-    this.$refs.boardItem.forEach(el => {
-      el.style.backgroundColor = el.dataset.bgcolor
-    })
+    this.$refs.boardItem.forEach((el) => {
+      el.style.backgroundColor = el.dataset.bgcolor;
+    });
   },
   methods: {
     fetchData() {
-      this.loading = true
-      board.fetch()
-        .then(data => {
-          this.boards = data.list
+      this.loading = true;
+      board
+        .fetch()
+        .then((data) => {
+          this.boards = data.list;
         })
         .finally(() => {
-          this.loading = false
-        })
+          this.loading = false;
+        });
     },
     addBoard() {
-      console.log('addBoard()')
+      this.isAddBoard = true
+      console.log("addBoard()");
+    },
+    onAddBoard(title){
+      console.log(title)
     }
-  }
-}
+  },
+};
 </script>
 
 <style>
@@ -82,7 +97,7 @@ export default {
 }
 .board-item a:hover,
 .board-item a:focus {
-  background-color: rgba(0,0,0, .1);
+  background-color: rgba(0, 0, 0, 0.1);
   color: #666;
 }
 .board-item-title {
