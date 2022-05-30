@@ -17,20 +17,17 @@
 </template>
 
 <script>
-import axios from "axios";
+import { board } from "@/api";
 export default {
   created() {
     this.fetchData();
   },
   methods: {
     fetchData() {
-      axios
-        .get("http://localhost:3000/boards")
+      board
+        .fetch()
         .then((res) => {
           this.boards = res.data;
-        })
-        .catch(() => {
-          this.$router.replace('/login')
         })
         .finally(() => {
           this.loading = false;
