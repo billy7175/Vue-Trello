@@ -30,9 +30,13 @@ export default {
   components: {
     AddBoard
   },
+  computed: {
+    isAddBoard() {
+      return this.$store.state.isAddBoard
+    }
+  },
   data() {
     return {
-      isAddBoard: false,
       loading: false,
       boards: [],
       error: "",
