@@ -15,7 +15,9 @@ const request = (method, url, data) => {
         method,
         url: DEV_DOMAIN + url,
         data
-    }).then(res => res.data)
+    }).then(res => {
+        return res.data
+    })
         .catch(error => {
             const { status } = error.response
             if (status === UNAUTHORIZED) onUnauthorized()
@@ -23,10 +25,11 @@ const request = (method, url, data) => {
         })
 }
 
-
+const { token } = localStorage
 export const setAuthInHeader = (token) => {
     axios.defaults.headers.common['Authorization'] = token ? `Bearer ${token}` : null
 }
+setAuthInHeader(token)
 
 export const board = {
     fetch() {
