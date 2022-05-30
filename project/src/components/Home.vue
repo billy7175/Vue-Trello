@@ -19,21 +19,22 @@
         </a>
       </div>
     </div>
-    <AddBoard v-if="isAddBoard" @close="isAddBoard = false" @submit="onAddBoard"></AddBoard>
+    <AddBoard v-if="isAddBoard" @submit="onAddBoard"></AddBoard>
   </div>
 </template>
 
 <script>
 import { board } from "../api";
 import AddBoard from '@/components/AddBoard'
+import { mapState } from 'vuex'
 export default {
   components: {
     AddBoard
   },
   computed: {
-    isAddBoard() {
-      return this.$store.state.isAddBoard
-    }
+    ...mapState([
+      'isAddBoard' 
+    ])
   },
   data() {
     return {
@@ -63,8 +64,8 @@ export default {
         });
     },
     addBoard() {
-      this.isAddBoard = true
-      console.log("addBoard()");
+      // this.isAddBoard = true
+      // console.log("addBoard()");
     },
     onAddBoard(title){
       board.create(title)
