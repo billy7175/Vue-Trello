@@ -3,7 +3,7 @@
     Board List
     <div v-if="loading">loading...</div>
     <div v-else>
-      <pre>{{ apiRes }}</pre>
+      <pre>{{ boards }}</pre>
     </div>
     <div v-if="error">
       <pre>{{ error }}</pre>
@@ -25,11 +25,13 @@ export default {
   methods: {
     fetchData() {
       axios
-        .get("http://localhost:3000/health")
+        .get("http://localhost:3000/boards")
         .then((res) => {
-          this.apiRes = res.data;
+          this.boards = res.data;
         })
-        .catch((res) => (this.error = res.response.data))
+        .catch(() => {
+          this.$router.replace('/login')
+        })
         .finally(() => {
           this.loading = false;
         });
@@ -38,7 +40,7 @@ export default {
   data() {
     return {
       loading: false,
-      apiRes: "",
+      boards: [],
       error: "",
     };
   },
