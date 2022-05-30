@@ -63,6 +63,8 @@ export default {
       console.log("addBoard()");
     },
     onAddBoard(title){
+      board.create(title)
+        .then(() => this.fetchData())
       console.log(title)
     }
   },
