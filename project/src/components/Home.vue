@@ -64,6 +64,7 @@ export default {
         });
     },
     addBoard() {
+      this.$store.commit('SET_IS_ADD_BOARD', true)
       // this.isAddBoard = true
       // console.log("addBoard()");
     },
