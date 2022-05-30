@@ -71,10 +71,8 @@ export default {
       // this.isAddBoard = true
       // console.log("addBoard()");
     },
-    onAddBoard(title){
-      board.create(title)
-        .then(() => this.fetchData())
-      console.log(title)
+    onAddBoard(){
+      this.fetchData()
     }
   },
 };
