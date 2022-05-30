@@ -27,7 +27,8 @@ export default {
       board
         .fetch()
         .then((res) => {
-          this.boards = res.data;
+          console.log('#boards', res)
+          this.boards = res.list;
         })
         .finally(() => {
           this.loading = false;

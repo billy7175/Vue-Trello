@@ -10,20 +10,31 @@ const onAuthorized = () => {
 
 
 const request = (method, url, data) => {
-    axios({
+    return axios({
         method,
         url: DEV_DOMAIN + url,
         data
     }).then(res => res.data)
-        .catch(res => {
-            const { status } = res.response
+        .catch(error => {
+            const { status } = error.response
             if (status === unauthorized) return onAuthorized()
-            throw Error(res)
+            throw error.response
         })
+}
+
+
+export const setAuthInHeader = (token) => {
+    axios.defaults.headers.common['Authorization'] = token ? `Bearer ${token}` : null
 }
 
 export const board = {
     fetch() {
         return request('get', '/boards')
+    }
+}
+
+export const auth = {
+    login(email, password) {
+        return request('post', '/login', { email, password })
     }
 }
