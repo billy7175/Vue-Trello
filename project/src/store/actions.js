@@ -12,15 +12,20 @@ const actions = {
             commit('SET_BOARDS', data.list)
         })
     },
-    FETCH_BOARD({ commit }, {id}) {
+    FETCH_BOARD({ commit }, { id }) {
         return api.board.fetch(id).then(data => {
             commit('SET_BOARD', data.item)
         })
     },
-    ADD_CARD({dispatch, state}, {title, listId, pos}) {
+    ADD_CARD({ dispatch, state }, { title, listId, pos }) {
         return api.card.create(title, listId, pos)
-          .then(() => dispatch('FETCH_BOARD', {id: state.board.id}))
-    }
+            .then(() => dispatch('FETCH_BOARD', { id: state.board.id }))
+    },
+    FETCH_CARD({ commit }, { id }) {
+        return api.card.fetch(id).then(data => {
+            commit('SET_CARD', data.item)
+        })
+    },
 
 }
 
