@@ -1,15 +1,33 @@
 <template>
   <div class="list">
     <div class="list-header">
-      <div class="list-header-title">{{data.title}}</div>
+      <div class="list-header-title">{{ data.title }}</div>
+      <!-- <pre>{{ data }}</pre> -->
+    </div>
+
+
+    <div v-if="isAddCard">
+      <AddCard :list-id="data.id" @close="isAddCard=false" />
+    </div>
+    <div v-else>
+      <a class="add-card-btn" href="" @click.prevent="isAddCard=true">
+        &plus; Add a card...
+      </a>
     </div>
   </div>
 </template>
 
 <script>
+import AddCard from './AddCard.vue'
 export default {
-  props: ['data'],
-}
+  components: { AddCard },
+  props: ["data"],
+    data() {
+    return {
+      isAddCard: false
+    }
+  }
+};
 </script>
 
 <style>
@@ -49,10 +67,10 @@ export default {
   flex: 1 1 auto;
   overflow-y: scroll;
 }
-.empty-card-item   {
+.empty-card-item {
   height: 10px;
   width: 100%;
-  background-color: rgba(0,0,0, 0);
+  background-color: rgba(0, 0, 0, 0);
 }
 .add-card-btn {
   flex: 0 0 auto;
@@ -63,6 +81,6 @@ export default {
 }
 .add-card-btn:focus,
 .add-card-btn:hover {
-  background-color: rgba(0,0,0, .1);
+  background-color: rgba(0, 0, 0, 0.1);
 }
 </style>
