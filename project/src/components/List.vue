@@ -5,12 +5,15 @@
       <!-- <pre>{{ data }}</pre> -->
     </div>
 
+    <div class="card-list" :data-list-id="data.id">
+      <CardItem v-for="card in data.cards" :key="`${card.id}`" :data="card" />
+    </div>
 
     <div v-if="isAddCard">
-      <AddCard :list-id="data.id" @close="isAddCard=false" />
+      <AddCard :list-id="data.id" @close="isAddCard = false" />
     </div>
     <div v-else>
-      <a class="add-card-btn" href="" @click.prevent="isAddCard=true">
+      <a class="add-card-btn" href="" @click.prevent="isAddCard = true">
         &plus; Add a card...
       </a>
     </div>
@@ -18,15 +21,16 @@
 </template>
 
 <script>
-import AddCard from './AddCard.vue'
+import AddCard from "./AddCard.vue";
+import CardItem from './CardItem.vue'
 export default {
-  components: { AddCard },
+  components: { AddCard, CardItem },
   props: ["data"],
-    data() {
+  data() {
     return {
-      isAddCard: false
-    }
-  }
+      isAddCard: false,
+    };
+  },
 };
 </script>
 
