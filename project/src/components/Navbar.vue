@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { setAuthInHeader } from "../api";
+import {  mapMutations } from "vuex";
 
 export default {
   computed: {
@@ -20,9 +20,13 @@ export default {
     },
   },
   methods: {
+    ...mapMutations([
+      'LOGOUT'
+    ]),
     logout() {
-      delete localStorage.token;
-      setAuthInHeader(null);
+      this.LOGOUT()
+      // delete localStorage.token;
+      // setAuthInHeader(null);
       this.$router.push("/login");
     },
   },
