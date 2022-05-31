@@ -38,7 +38,7 @@ export default {
   position: relative;
   flex: none;
   background-color: rgba(0, 0, 0, 0.15);
-  height: 32px;
+  height: 40px;
   padding: 4px;
 }
 .header a {
